@@ -1,0 +1,178 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - yo
+    - hello world
+    - hi there
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - thanks, goodbye
+    - bye now
+    - thanks, bye!
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - /affirm
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: stop
+  examples: |
+    - stop
+    - nevermind
+    - please stop
+    - i want to stop
+    - stop the form
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - by the way, are you a human?
+
+- intent: start_booking
+  examples: |
+    - I'd like to book a room
+    - Can I reserve a room?
+    - I want to make a booking
+    - Is it possible to book a room for tonight?
+    - I'd like to arrange a stay
+    - I want to check room availability
+    - Can you help me book a room?
+    - I'm looking for a room to book
+    - I want to make a reservation
+    - How can I book a room here?
+    - I'd like to secure a room
+    - I need to book a place for tonight
+    - Is there a way to book through you?
+    - Help me with a booking, please
+    - I need to make a room booking
+    - Can I reserve a spot for tonight?
+    - I need a room and want to book
+    - Let's start booking a room
+    - How do I book a room with you?
+
+- intent: provide_name
+  examples: |
+    - My name is [Paula](name)
+    - I am [Paula](name)
+    - Call me [Paula](name)
+    - Everyone calls me [Paula](name)
+    - I go by [Paula](name)
+    - You can address me as [Paula](name)
+    - You may call me [Paula](name)
+    - Just call me [Paula](name)
+    - My given name is [Paula](name)
+    - Please call me [Paula](name)
+    - People know me as [Paula](name)
+    - It's [Paula](name)
+
+- intent: provide_surname
+  examples: |
+    - My surname is [De Dios](surname)
+    - My family name is [De Dios](surname)
+    - I go by [De Dios](surname)
+    - You can call me [De Dios](surname)
+    - My last name is [De Dios](surname)
+    - The last name is [De Dios](surname)
+    - Just call me [De Dios](surname)
+    - De Dios is my surname
+    - People know me as [De Dios](surname)
+    - My full name includes [De Dios](surname)
+    - The surname is [De Dios](surname)
+
+- intent: provide_birthday
+  examples: |
+    - My birthday is [January 1st](birthday)
+    - I was born on [February 15](birthday)
+    - My birth date is [March 20](birthday)
+    - My date of birth is [April 25](birthday)
+    - I celebrate my birthday on [May 30](birthday)
+    - I was born on [June 10](birthday)
+    - My birthday is [July 4th](birthday)
+    - My birthday falls on [August 15](birthday)
+    - My date of birth is [September 1](birthday)
+    - My birth date is [October 31](birthday)
+    - I was born on [November 11](birthday)
+    - My birthday is [December 25](birthday)
+    - I celebrate my birth on [January 1st](birthday)
+    - You can remember my birthday as [February 15](birthday)
+    - I was born on the [20th of March](birthday)
+    - My birth date falls on [April 25](birthday)
+    - I was born in [May](birthday)
+    - I celebrate my birthday every [June 10](birthday)
+    - I was born in the summer on [July 4th](birthday)
+    - My birthday is always on [August 15](birthday)
+    - You can note my birth date as [September 1](birthday)
+    - Halloween is near my birthday, on [October 31](birthday)
+    - I was born on Armistice Day, [November 11](birthday)
+    - Christmas is my birthday, [December 25](birthday)
+

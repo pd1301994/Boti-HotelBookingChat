@@ -1,0 +1,66 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: start_booking
+  - action: simple_pizza_form
+  - active_loop: simple_pizza_form
+  - intent: provide_name
+    entities:
+      - name: "Paula"
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: Paula
+  - intent: provide_surname
+    entities:
+      - surname: "Oliver"
+  - slot_was_set:
+    - requested_slot: surname
+  - slot_was_set:
+    - surname: Oliver
+  - intent: provide_birthday
+    entities:
+      - birthday: "15Juni"
+  - slot_was_set:
+    - requested_slot: birthday
+  - slot_was_set:
+    - birthday: 15Juni
+
+  - active_loop: null
+  - action: utter_booking
+  - action: utter_submit
+  
+  - intent: goodbye
+  - action: utter_goodbye

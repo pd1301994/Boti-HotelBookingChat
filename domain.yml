@@ -3,55 +3,41 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- start_booking
-- greet
-- goodbye
-- inform
 - affirm
-- stop
 - bot_challenge
 - buy_fancy_pizza
 - deny
+- goodbye
+- greet
+- inform
 - mood_great
 - mood_unhappy
-- request_pizza_form
 - provide_name
 - provide_surname
-- provide_birthday
-
+- request_pizza_form
+- start_booking
+- stop
 entities:
 - name
 - surname
-- birthday
 forms:
   simple_pizza_form:
     required_slots:
     - name
     - surname
-    - birthday
-
 slots:
   name:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: name
-
   surname:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: surname
-  
-  birthday:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: birthday
-
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -69,23 +55,23 @@ responses:
   utter_submit:
   - text: I did everything correctly
   utter_booking:
-  - text: Hey {name} and {surname} born in the {birthday}
-
+  - text: Hey {name} and {surname} born
   utter_ask_continue:
   - text: Are you sure you want to stop the form?
   utter_ask_name:
   - text: What is your name?
   utter_ask_surname:
   - text: What is your surname?
-  utter_ask_birthday:
-  - text: What is your birthday?
-
+  utter_say_name:
+  - text: Your name is {name}
+  utter_say_surname:
+  - text: Your surname is {surname}
 actions:
-
-- utter_ask_continue
+- utter_submit
+- action_save_name_to_csv
 - utter_goodbye
+- utter_ask_continue
 - utter_greet
 - utter_iamabot
-- utter_submit
 - utter_booking
 - validate_simple_pizza_form

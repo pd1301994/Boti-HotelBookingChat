@@ -97,7 +97,6 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
     - by the way, are you a human?
-
 - intent: start_booking
   examples: |
     - I'd like to book a room
@@ -119,7 +118,7 @@ nlu:
     - I need a room and want to book
     - Let's start booking a room
     - How do I book a room with you?
-
+    - I wanto to book
 - intent: provide_name
   examples: |
     - My name is [Paula](name)
@@ -134,7 +133,28 @@ nlu:
     - Please call me [Paula](name)
     - People know me as [Paula](name)
     - It's [Paula](name)
-
+    - My name is [Chris](name)
+    - I am [Chris](name)
+    - Call me [Chris](name)
+    - Everyone calls me [Chris](name)
+    - I go by [Chris](name)
+    - You can address me as [Chris](name)
+    - My name is [Max](name)
+    - I am [Max](name)
+    - Call me [Max](name)
+    - Everyone calls me [Max](name)
+    - I go by [Max](name)
+    - My name is [Anna](name)
+    - I am [Anna](name)
+    - Call me [Anna](name)
+    - Everyone calls me [Anna](name)
+    - I go by [Anna](name)
+    - My name is [Luis](name)
+    - I am [Luis](name)
+    - Call me [Luis](name)
+    - Everyone calls me [Luis](name)
+    - I go by [Luis](name)
+    - My name is [Paula](name)
 - intent: provide_surname
   examples: |
     - My surname is [De Dios](surname)
@@ -148,31 +168,24 @@ nlu:
     - People know me as [De Dios](surname)
     - My full name includes [De Dios](surname)
     - The surname is [De Dios](surname)
-
-- intent: provide_birthday
-  examples: |
-    - My birthday is [January 1st](birthday)
-    - I was born on [February 15](birthday)
-    - My birth date is [March 20](birthday)
-    - My date of birth is [April 25](birthday)
-    - I celebrate my birthday on [May 30](birthday)
-    - I was born on [June 10](birthday)
-    - My birthday is [July 4th](birthday)
-    - My birthday falls on [August 15](birthday)
-    - My date of birth is [September 1](birthday)
-    - My birth date is [October 31](birthday)
-    - I was born on [November 11](birthday)
-    - My birthday is [December 25](birthday)
-    - I celebrate my birth on [January 1st](birthday)
-    - You can remember my birthday as [February 15](birthday)
-    - I was born on the [20th of March](birthday)
-    - My birth date falls on [April 25](birthday)
-    - I was born in [May](birthday)
-    - I celebrate my birthday every [June 10](birthday)
-    - I was born in the summer on [July 4th](birthday)
-    - My birthday is always on [August 15](birthday)
-    - You can note my birth date as [September 1](birthday)
-    - Halloween is near my birthday, on [October 31](birthday)
-    - I was born on Armistice Day, [November 11](birthday)
-    - Christmas is my birthday, [December 25](birthday)
-
+    - (surname)
+    - [De Dios]
+    - [Garcia]
+    - My surname is [Gonzalez](surname)
+    - My family name is [Gonzalez](surname)
+    - I go by [Gonzalez](surname)
+    - You can call me [Gonzalez](surname)
+    - My last name is [Gonzalez](surname)
+    - The last name is [Gonzalez](surname)
+    - Just call me [Gonzalez](surname)
+    - My surname is [Hernandez](surname)
+    - My family name is [Hernandez](surname)
+    - You can address me as [Hernandez](surname)
+    - My last name is [Hernandez](surname)
+    - Just call me [Hernandez](surname)
+    - The last name is [Hernandez](surname)
+    - My surname is [Lopez](surname)
+    - I go by [Lopez](surname)
+    - People know me as [Lopez](surname)
+    - You can call me [Lopez](surname)
+    - my surname is [deDios](surname)

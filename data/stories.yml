@@ -29,38 +29,59 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-- story: interactive_story_1
+- story: test_story_name
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: start_booking
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
   - intent: provide_name
     entities:
       - name: "Paula"
+  - action: utter_say_name
   - slot_was_set:
-    - requested_slot: name
-  - slot_was_set:
-    - name: Paula
+      - name: null
+  
+- story: test_story_surname
+  steps:
   - intent: provide_surname
     entities:
-      - surname: "Oliver"
+      - surname: "DE DIOS"  # Make sure to define the entity correctly
+  - action: utter_say_surname  # Respond with the surname
+  - slot_was_set:
+      - surname: null  # Reset the surname slot after the action
+
+
+
+
+
+- story: interactive_story_2
+  steps:
+  - intent: start_booking
+  - action: simple_pizza_form
+  - active_loop: simple_pizza_form
+  - slot_was_set:
+    - requested_slot: name
+  - intent: provide_name
+    entities:
+    - name: Paula
+  - slot_was_set:
+    - name: Paula
+  - action: simple_pizza_form
+  - slot_was_set:
+    - name: Paula
   - slot_was_set:
     - requested_slot: surname
-  - slot_was_set:
-    - surname: Oliver
-  - intent: provide_birthday
+  - intent: provide_surname
     entities:
-      - birthday: "15Juni"
+    - surname: deDios
   - slot_was_set:
-    - requested_slot: birthday
+    - surname: deDios
+  - action: simple_pizza_form
   - slot_was_set:
-    - birthday: 15Juni
-
+    - surname: deDios
   - active_loop: null
-  - action: utter_booking
+  - action: action_save_name_to_csv
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
   - action: utter_submit
-  
-  - intent: goodbye
+
   - action: utter_goodbye

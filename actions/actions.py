@@ -8,6 +8,7 @@ from rasa_sdk.types import DomainDict
 
 
 class ValidateSimplePizzaForm(FormValidationAction):
+    #some commemt 2
     def name(self) -> Text:
         return "validate_simple_pizza_form"
 

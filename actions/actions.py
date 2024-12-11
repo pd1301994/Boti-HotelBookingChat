@@ -5,6 +5,7 @@ from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+from rasa_sdk import Action, Tracker
 file_path = "names.csv"
 
 class ValidateSimplePizzaForm(FormValidationAction):
@@ -50,5 +51,11 @@ class ValidateSimplePizzaForm(FormValidationAction):
             dispatcher.utter_message(text=f"An error occurred while saving your details: {str(e)}")
 
         return {"surname": slot_value}
+class ActionResetSlots(Action):
+    def name(self) -> str:
+        return "action_reset_slots"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
+        return [tracker.SlotSet("name", None), tracker.SlotSet("surname", None)]
 
    

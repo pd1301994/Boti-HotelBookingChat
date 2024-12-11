@@ -74,3 +74,4 @@ actions:
 - utter_greet
 - utter_iamabot
 - validate_simple_pizza_form
+- action_reset_slots

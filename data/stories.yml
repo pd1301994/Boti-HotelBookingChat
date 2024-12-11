@@ -38,6 +38,8 @@ stories:
       - name: PAula
       - surname: DDDDD
   - action: action_deactivate_loop
+
   - active_loop: null
+  - action: action_reset_slots
   - action: utter_goodbye
 

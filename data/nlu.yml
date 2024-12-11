@@ -119,6 +119,7 @@ nlu:
     - Let's start booking a room
     - How do I book a room with you?
     - I wanto to book
+    - I want to book
 - intent: provide_name
   examples: |
     - My name is [Paula](name)
@@ -154,7 +155,8 @@ nlu:
     - Call me [Luis](name)
     - Everyone calls me [Luis](name)
     - I go by [Luis](name)
-    - My name is [Paula](name)
+    - my name is [Paula](name)
+    - My name is [PAula](name)
 - intent: provide_surname
   examples: |
     - My surname is [De Dios](surname)
@@ -189,3 +191,7 @@ nlu:
     - People know me as [Lopez](surname)
     - You can call me [Lopez](surname)
     - my surname is [deDios](surname)
+    - My surname is [DeDios](surname)
+    - My surname is [dedios](surname)
+    - My surname is [DEDIIIS](surname)
+    - My surname is [DEDIOS](surname)

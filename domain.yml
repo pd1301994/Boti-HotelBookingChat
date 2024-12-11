@@ -39,6 +39,8 @@ slots:
     - type: from_entity
       entity: surname
 responses:
+  utter_booking:
+  - text: Hey {name} and {surname} born
   utter_greet:
   - text: Hey! How are you?
   utter_cheer_up:
@@ -54,8 +56,6 @@ responses:
   - text: I am a bot, powered by Rasa.
   utter_submit:
   - text: I did everything correctly
-  utter_booking:
-  - text: Hey {name} and {surname} born
   utter_ask_continue:
   - text: Are you sure you want to stop the form?
   utter_ask_name:
@@ -68,10 +68,9 @@ responses:
   - text: Your surname is {surname}
 actions:
 - utter_submit
-- action_save_name_to_csv
+- utter_booking
 - utter_goodbye
 - utter_ask_continue
 - utter_greet
 - utter_iamabot
-- utter_booking
 - validate_simple_pizza_form

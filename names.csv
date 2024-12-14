@@ -1,4 +1,2 @@
-month,day,year,name,surname
-January,3,PAULS,DEDIOS
-February,3,Pauaaaaa,2025,DEdiosOliver
-February,3,PAULa,2025,dedioss
+date,year,name,surname
+2025-03-02,PAula,2025,DEDIOS

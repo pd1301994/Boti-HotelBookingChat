@@ -8,6 +8,11 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk import Action, Tracker
 DAY = ["1", "2", "3"]
 MONTHS = ["January", "February", "March"]
+month_mapping = {
+    "january": "01",
+    "february": "02",
+    "march": "03",
+}
 file_path = "names.csv"
 
 class ValidateSimplePizzaForm(FormValidationAction):
@@ -87,12 +92,15 @@ class ValidateSimplePizzaForm(FormValidationAction):
             return {"surname": None}
 
         dispatcher.utter_message(text=f"OK! Your surname is {slot_value}.")
+        month_slot_value = tracker.get_slot('month').lower()
+        month_number = month_mapping.get(month_slot_value)
+      
         try:
             with open(file_path, mode="a", newline="", encoding="utf-8") as file:
-                writer = csv.writer(file)            
+                writer = csv.writer(file) 
+                formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"            
                 writer.writerow([
-                    tracker.get_slot('month'),
-                    tracker.get_slot('day'),
+                    formatted_date,                   
                     tracker.get_slot('name'),
                     "2025",
                     slot_value

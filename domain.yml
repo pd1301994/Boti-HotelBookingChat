@@ -3,29 +3,36 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- affirm
-- bot_challenge
-- buy_fancy_pizza
-- deny
-- goodbye
-- greet
-- inform
-- mood_great
-- mood_unhappy
 - provide_name
 - provide_surname
-- request_pizza_form
 - start_booking
-- stop
+
+
 entities:
+- month
+- day
 - name
 - surname
 forms:
-  simple_pizza_form:
+  booking_form:
     required_slots:
+    - month
+    - day
     - name
     - surname
 slots:
+  month:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: month
+  day:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: day
   name:
     type: text
     influence_conversation: false
@@ -38,26 +45,8 @@ slots:
     mappings:
     - type: from_entity
       entity: surname
+  
 responses:
-  utter_booking:
-  - text: Hey {name} and {surname} born
-  utter_greet:
-  - text: Hey! How are you?
-  utter_cheer_up:
-  - image: https://i.imgur.com/nGF1K8f.jpg
-    text: 'Here is something to cheer you up:'
-  utter_did_that_help:
-  - text: Did that help you?
-  utter_happy:
-  - text: Great, carry on!
-  utter_goodbye:
-  - text: Bye
-  utter_iamabot:
-  - text: I am a bot, powered by Rasa.
-  utter_submit:
-  - text: I did everything correctly
-  utter_ask_continue:
-  - text: Are you sure you want to stop the form?
   utter_ask_name:
   - text: What is your name?
   utter_ask_surname:
@@ -66,12 +55,26 @@ responses:
   - text: Your name is {name}
   utter_say_surname:
   - text: Your surname is {surname}
+  utter_ask_month:
+  - text: 'Tell me the month :) '
+    buttons:
+    - title: January
+      payload: '/start_booking{{"month": "January"}}'
+    - title: February
+      payload: '/start_booking{{"month": "February"}}'
+    - title: March
+      payload: '/start_booking{{"month": "March"}}'
+  utter_ask_day:
+  - text: Hello! Which Day.
+    buttons:
+    - title: '1'
+      payload: '/start_booking{{"day": "1"}}'
+    - title: '2'
+      payload: '/start_booking{{"day": "2"}}'
+    - title: '3'
+      payload: '/start_booking{{"day": "3"}}'
+
+
 actions:
-- utter_submit
-- utter_booking
-- utter_goodbye
-- utter_ask_continue
-- utter_greet
-- utter_iamabot
-- validate_simple_pizza_form
+- validate_booking_form
 - action_reset_slots

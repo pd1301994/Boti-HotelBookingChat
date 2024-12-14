@@ -1,45 +1,18 @@
 version: "3.1"
 
 stories:
-
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
 - story: interactive_story_1
   steps:
   - intent: start_booking
-  - action: simple_pizza_form
-  - active_loop: simple_pizza_form
+  - action: booking_form
+  - active_loop: booking_form
   - slot_was_set:
+      - month: March
+      - day: '1'
       - name: PAula
       - surname: DDDDD
   - action: action_deactivate_loop
-
   - active_loop: null
   - action: action_reset_slots
-  - action: utter_goodbye
+  
 

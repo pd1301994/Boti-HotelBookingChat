@@ -1,11 +1,14 @@
 import csv
+from datetime import datetime
+from datetime import timedelta
 from typing import Text, List, Any, Dict
-
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk import Action, Tracker
+
+
 DAY = ["1", "2", "3"]
 MONTHS = ["January", "February", "March"]
 month_mapping = {
@@ -14,6 +17,20 @@ month_mapping = {
     "march": "03",
 }
 file_path = "names.csv"
+def load_bookings():
+    bookings = []
+    try:
+        with open(file_path, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                # Limpiar espacios adicionales en las fechas antes de convertirlas
+                row['Entry_Date'] = datetime.strptime(row['Entry_Date'].strip(), "%Y-%m-%d")
+                row['Exit_Date'] = datetime.strptime(row['Exit_Date'].strip(), "%Y-%m-%d")
+                bookings.append(row)
+    except FileNotFoundError:
+        # Si el archivo no existe, se crea una lista vacía
+        print("File was not found.")
+    return bookings
 
 class ValidateSimplePizzaForm(FormValidationAction):
     def name(self) -> Text:
@@ -96,25 +113,33 @@ class ValidateSimplePizzaForm(FormValidationAction):
         month_number = month_mapping.get(month_slot_value)
       
         try:
-            with open(file_path, mode="a", newline="", encoding="utf-8") as file:
-                writer = csv.writer(file) 
-                formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"            
-                writer.writerow([
-                    formatted_date,                   
-                    tracker.get_slot('name'),
-                    "2025",
-                    slot_value
-                ])
+            bookings = load_bookings()
+            formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
+            original_date = datetime.strptime(formatted_date, "%Y-%m-%d")
+            new_date = original_date + timedelta(days=3)
+            new_date_str = new_date.strftime("%Y-%m-%d")
+            new_booking = {
+
+            'ID_Boking': str(len(bookings) + 1),  
+            'Room_Type': "Double",
+            'Entry_Date': original_date.strftime('%Y-%m-%d'),
+            'Exit_Date': new_date_str,
+            'Name': tracker.get_slot('name'),
+            'surname': slot_value
+
+        }        
+            with open(file_path, mode='a', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=['ID_Boking','Room_Type','Entry_Date','Exit_Date','Name','surname'])
+                if file.tell() == 0:
+                    writer.writeheader()
+                writer.writerow(new_booking)
             
-            # Confirmar que los detalles han sido guardados
             dispatcher.utter_message(
                 text=f"Your details have been saved: {tracker.get_slot('month')}, "
                      f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
             )
         except Exception as e:
             dispatcher.utter_message(text=f"An error occurred while saving your details: {str(e)}")
-
-
         return {"surname": slot_value}  
 class ActionResetSlots(Action):
     def name(self) -> str:

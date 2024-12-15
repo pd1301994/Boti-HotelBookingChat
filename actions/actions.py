@@ -18,6 +18,14 @@ month_mapping = {
     "february": "02",
     "march": "03",
 }
+def is_room_available(room_type, entry_date, exit_date, bookings):
+    """Comprueba la disponibilidad de la habitación para las fechas solicitadas."""
+    for booking in bookings:
+        if booking['Room_Type'] == room_type:
+            # Verificar si las fechas se solapan
+            if not (exit_date <= booking['Entry_Date'] or entry_date >= booking['Exit_Date']):
+                return False  
+    return True
 file_path = "names.csv"
 def load_bookings():
     bookings = []
@@ -38,7 +46,7 @@ def get_room_type(guest_count):
         return "Single"
     elif guest_count == 2:
         return "Double"
-    elif 3 <= guest_count <= 6:
+    elif 3 <= guest_count <= 7:
         return "Familiar"
 
 class ValidateSimplePizzaForm(FormValidationAction):
@@ -159,32 +167,38 @@ class ValidateSimplePizzaForm(FormValidationAction):
         month_slot_value = tracker.get_slot('month').lower()
         month_number = month_mapping.get(month_slot_value)
         number_of_booking_days = int(tracker.get_slot('number_of_days'))
+        formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
+        entry_date = datetime.strptime(formatted_date, "%Y-%m-%d")
+        exit_date = entry_date + timedelta(days=number_of_booking_days)
         try:
             bookings = load_bookings()
-            formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
-            original_date = datetime.strptime(formatted_date, "%Y-%m-%d")
-            new_date = original_date + timedelta(days=number_of_booking_days)
-            new_date_str = new_date.strftime("%Y-%m-%d")
-            new_booking = {
-
-            'ID_Boking': str(len(bookings) + 1),  
-            'Room_Type': get_room_type(number_of_booking_days),
-            'Entry_Date': original_date.strftime('%Y-%m-%d'),
-            'Exit_Date': new_date_str,
-            'Name': tracker.get_slot('name'),
-            'surname': slot_value
-
-        }        
-            with open(file_path, mode='a', newline='') as file:
-                writer = csv.DictWriter(file, fieldnames=['ID_Boking','Room_Type','Entry_Date','Exit_Date','Name','surname'])
-                if file.tell() == 0:
-                    writer.writeheader()
-                writer.writerow(new_booking)
             
-            dispatcher.utter_message(
-                text=f"Your details have been saved: {tracker.get_slot('month')}, "
-                     f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
-            )
+            room_type = get_room_type(number_of_booking_days)
+            
+            if is_room_available(room_type,entry_date, exit_date, bookings):
+                new_booking = {
+
+                'ID_Boking': str(len(bookings) + 1),  
+                'Room_Type': room_type,
+                'Entry_Date': entry_date.strftime('%Y-%m-%d'),
+                'Exit_Date': exit_date.strftime("%Y-%m-%d"),
+                'Name': tracker.get_slot('name'),
+                'surname': slot_value
+
+            }        
+                with open(file_path, mode='a', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=['ID_Boking','Room_Type','Entry_Date','Exit_Date','Name','surname'])
+                    if file.tell() == 0:
+                        writer.writeheader()
+                    writer.writerow(new_booking)
+                
+                dispatcher.utter_message(
+                    text=f"Your details have been saved: {tracker.get_slot('month')}, "
+                        f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
+                )
+            else:
+                dispatcher.utter_message(
+                    text=f"Sorry {tracker.get_slot('name')} the room you wanted is book on the {tracker.get_slot('day')} of {tracker.get_slot('month')}, try another date:()")
         except Exception as e:
             dispatcher.utter_message(text=f"An error occurred while saving your details: {str(e)}")
         return {"surname": slot_value}  

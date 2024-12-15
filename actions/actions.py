@@ -10,6 +10,8 @@ from rasa_sdk import Action, Tracker
 
 
 DAY = ["1", "2", "3"]
+NODAYS = ['1', '2', '3', '4', '5', '6', '7']
+NOGUESTS = ['1', '2', '3', '4', '5', '6']
 MONTHS = ["January", "February", "March"]
 month_mapping = {
     "january": "01",
@@ -31,11 +33,17 @@ def load_bookings():
         # Si el archivo no existe, se crea una lista vacía
         print("File was not found.")
     return bookings
+def get_room_type(guest_count):
+    if guest_count == 1:
+        return "Single"
+    elif guest_count == 2:
+        return "Double"
+    elif 3 <= guest_count <= 6:
+        return "Familiar"
 
 class ValidateSimplePizzaForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
-
     def validate_month(
         self,
         slot_value: Any,
@@ -57,8 +65,6 @@ class ValidateSimplePizzaForm(FormValidationAction):
             return {"month": None}
         dispatcher.utter_message(text=f"OK! You want to have a {slot_value} MONTHS.")
         return {"month": slot_value}
-
-
     def validate_day(
         self,
         slot_value: Any,
@@ -79,8 +85,49 @@ class ValidateSimplePizzaForm(FormValidationAction):
             )
             return {"day": None}
         dispatcher.utter_message(text=f"Day {slot_value} .")
-        return {"day": slot_value}
-    
+        return {"day": slot_value}    
+    def validate_number_of_days(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `number_of_days` value."""
+
+        if slot_value not in NODAYS:
+            dispatcher.utter_message(
+                text=f"FUCK YOU {NODAYS}."
+            )
+            return {"number_of_days": None}
+        if not slot_value:
+            dispatcher.utter_message(
+                text=f"IKeine AHNung {NODAYS}."
+            )
+            return {"number_of_days": None}
+        dispatcher.utter_message(text=f"number_of_days {slot_value} .")
+        return {"number_of_days": slot_value}
+    def validate_number_of_guests(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `number_of_guests` value."""
+
+        if slot_value not in NODAYS:
+            dispatcher.utter_message(
+                text=f"FUCK YOU {NOGUESTS}."
+            )
+            return {"number_of_guests": None}
+        if not slot_value:
+            dispatcher.utter_message(
+                text=f"IKeine AHNung {NOGUESTS}."
+            )
+            return {"number_of_guests": None}
+        dispatcher.utter_message(text=f"number_of_guests {slot_value} .")
+        return {"number_of_guests": slot_value}
     def validate_name(
         self,
         slot_value: Any,
@@ -111,17 +158,17 @@ class ValidateSimplePizzaForm(FormValidationAction):
         dispatcher.utter_message(text=f"OK! Your surname is {slot_value}.")
         month_slot_value = tracker.get_slot('month').lower()
         month_number = month_mapping.get(month_slot_value)
-      
+        number_of_booking_days = int(tracker.get_slot('number_of_days'))
         try:
             bookings = load_bookings()
             formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
             original_date = datetime.strptime(formatted_date, "%Y-%m-%d")
-            new_date = original_date + timedelta(days=3)
+            new_date = original_date + timedelta(days=number_of_booking_days)
             new_date_str = new_date.strftime("%Y-%m-%d")
             new_booking = {
 
             'ID_Boking': str(len(bookings) + 1),  
-            'Room_Type': "Double",
+            'Room_Type': get_room_type(number_of_booking_days),
             'Entry_Date': original_date.strftime('%Y-%m-%d'),
             'Exit_Date': new_date_str,
             'Name': tracker.get_slot('name'),
@@ -147,5 +194,3 @@ class ActionResetSlots(Action):
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         return [tracker.SlotSet("name", None), tracker.SlotSet("surname", None)]
-
-   

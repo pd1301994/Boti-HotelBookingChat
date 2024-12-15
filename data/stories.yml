@@ -9,6 +9,8 @@ stories:
   - slot_was_set:
       - month: March
       - day: '1'
+      - number_of_days: '2'
+      - number_of_guests: '6'
       - name: PAula
       - surname: DDDDD
   - action: action_deactivate_loop

@@ -6,11 +6,11 @@ intents:
 - provide_name
 - provide_surname
 - start_booking
-
-
 entities:
 - month
 - day
+- number_of_days
+- number_of_guests
 - name
 - surname
 forms:
@@ -18,6 +18,8 @@ forms:
     required_slots:
     - month
     - day
+    - number_of_days
+    - number_of_guests
     - name
     - surname
 slots:
@@ -33,6 +35,18 @@ slots:
     mappings:
     - type: from_entity
       entity: day
+  number_of_days:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: number_of_days
+  number_of_guests:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: number_of_guests
   name:
     type: text
     influence_conversation: false
@@ -73,6 +87,38 @@ responses:
       payload: '/start_booking{{"day": "2"}}'
     - title: '3'
       payload: '/start_booking{{"day": "3"}}'
+  utter_ask_number_of_days:
+  - text: How long would you like to stay?.
+    buttons:
+    - title: '1'
+      payload: '/start_booking{{"number_of_days": "1"}}'
+    - title: '2'
+      payload: '/start_booking{{"number_of_days": "2"}}'
+    - title: '3'
+      payload: '/start_booking{{"number_of_days": "3"}}'
+    - title: '4'
+      payload: '/start_booking{{"number_of_days": "4"}}'
+    - title: '5'
+      payload: '/start_booking{{"number_of_days": "5"}}'
+    - title: '6'
+      payload: '/start_booking{{"number_of_days": "6"}}'
+  utter_ask_number_of_guests:
+  - text: How long would you like to stay?.
+    buttons:
+    - title: '1'
+      payload: '/start_booking{{"number_of_guests": "1"}}'
+    - title: '2'
+      payload: '/start_booking{{"number_of_guests": "2"}}'
+    - title: '3'
+      payload: '/start_booking{{"number_of_guests": "3"}}'
+    - title: '4'
+      payload: '/start_booking{{"number_of_guests": "4"}}'
+    - title: '5'
+      payload: '/start_booking{{"number_of_guests": "5"}}'
+    - title: '6'
+      payload: '/start_booking{{"number_of_guests": "6"}}'
+    - title: '7'
+      payload: '/start_booking{{"number_of_guests": "7"}}'
 
 
 actions:

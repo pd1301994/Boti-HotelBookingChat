@@ -270,13 +270,18 @@
                 sendMessage();
             }
         });
+        function generateSenderID() {
+        return 'user_' + Math.random().toString(36).substring(2, 15); // Crear un ID único
+    }
+
+        const senderID = generateSenderID();
 
         function sendMessage() {
             const message = userInput.value.trim();
             if (message) {
-                appendMessage('Tú', message);
+                appendMessage('User', message);
                 userInput.value = ''; // Limpiar el campo de entrada
-                appendMessage('Bot', '<span class="loading">Loading...</span>'); // Indicador de carga
+                
                 sendMessageToRasa(message);
             }
         }
@@ -293,7 +298,7 @@
                 const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ "sender": "beaa2222ises1s", "message": message })
+                    body: JSON.stringify({ "sender": senderID, "message": message })
                 });
 
                 if (!response.ok) {
@@ -303,7 +308,7 @@
                 const data = await response.json();
                 data.forEach(res => {
                     if (res.text) {
-                        appendMessage('Bot', res.text);
+                        appendMessage('PCBoti', res.text);
                     }
                     if (res.buttons) {
                         appendButtonOptions(res.buttons); // Llama a la función para agregar botones
@@ -311,7 +316,7 @@
                 });
             } catch (error) {
                 console.error('Error al enviar el mensaje:', error);
-                appendMessage('Bot', 'Hubo un error al enviar el mensaje.');
+                appendMessage('Bot', 'Error while sending the message.');
             }
         }
 

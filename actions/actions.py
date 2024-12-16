@@ -9,15 +9,28 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk import Action, Tracker
 
 
-DAY = ["1", "2", "3"]
+DAY = [str(day) for day in range(1, 32)]
 NODAYS = ['1', '2', '3', '4', '5', '6', '7']
 NOGUESTS = ['1', '2', '3', '4', '5', '6']
-MONTHS = ["January", "February", "March"]
+MONTHS = [
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+]
 month_mapping = {
     "january": "01",
     "february": "02",
     "march": "03",
+    "april": "04",
+    "may": "05",
+    "june": "06",
+    "july": "07",
+    "august": "08",
+    "september": "09",
+    "october": "10",
+    "november": "11",
+    "december": "12"
 }
+
 def is_room_available(room_type, entry_date, exit_date, bookings):
     """Comprueba la disponibilidad de la habitación para las fechas solicitadas."""
     for booking in bookings:
@@ -63,15 +76,15 @@ class ValidateSimplePizzaForm(FormValidationAction):
 
         if slot_value not in MONTHS:
             dispatcher.utter_message(
-                text=f"FUCK YOU {slot_value}."
+                text=f"Not a valid month, choose one from the dropdown menu {slot_value}."
             )
             return {"month": None}
         if not slot_value:
             dispatcher.utter_message(
-                text=f"a lot of months {slot_value}."
+                text=f"Not a valid month, choose one from the dropdown menu {slot_value}."
             )
             return {"month": None}
-        dispatcher.utter_message(text=f"OK! You want to have a {slot_value} MONTHS.")
+        dispatcher.utter_message(text=f"Perfect, you chose: {slot_value}")
         return {"month": slot_value}
     def validate_day(
         self,
@@ -84,15 +97,15 @@ class ValidateSimplePizzaForm(FormValidationAction):
 
         if slot_value not in DAY:
             dispatcher.utter_message(
-                text=f"FUCK YOU {DAY}."
+                text=f"This day is not valid {DAY}."
             )
             return {"day": None}
         if not slot_value:
             dispatcher.utter_message(
-                text=f"IKeine AHNung {DAY}."
+                text=f"This day is not valid {DAY}."
             )
             return {"day": None}
-        dispatcher.utter_message(text=f"Day {slot_value} .")
+        dispatcher.utter_message(text=f"Perfect, you chose: {slot_value} .")
         return {"day": slot_value}    
     def validate_number_of_days(
         self,
@@ -105,15 +118,15 @@ class ValidateSimplePizzaForm(FormValidationAction):
 
         if slot_value not in NODAYS:
             dispatcher.utter_message(
-                text=f"FUCK YOU {NODAYS}."
+                text=f"Not allowed {NODAYS}."
             )
             return {"number_of_days": None}
         if not slot_value:
             dispatcher.utter_message(
-                text=f"IKeine AHNung {NODAYS}."
+                text=f"Not allowed {NODAYS}."
             )
             return {"number_of_days": None}
-        dispatcher.utter_message(text=f"number_of_days {slot_value} .")
+        dispatcher.utter_message(text=f"You will stay: {slot_value} days.")
         return {"number_of_days": slot_value}
     def validate_number_of_guests(
         self,
@@ -126,15 +139,15 @@ class ValidateSimplePizzaForm(FormValidationAction):
 
         if slot_value not in NODAYS:
             dispatcher.utter_message(
-                text=f"FUCK YOU {NOGUESTS}."
+                text=f"Not valid {NOGUESTS}."
             )
             return {"number_of_guests": None}
         if not slot_value:
             dispatcher.utter_message(
-                text=f"IKeine AHNung {NOGUESTS}."
+                text=f"Nope {NOGUESTS}."
             )
             return {"number_of_guests": None}
-        dispatcher.utter_message(text=f"number_of_guests {slot_value} .")
+        dispatcher.utter_message(text=f"You will be:  {slot_value} people.")
         return {"number_of_guests": slot_value}
     def validate_name(
         self,
@@ -148,7 +161,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
         if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
             dispatcher.utter_message(text="We only accept valid names.")
             return {"name": None}
-        dispatcher.utter_message(text=f"OK! Your name is {slot_value}.")
+        dispatcher.utter_message(text=f"Hey, {slot_value}.")
         return {"name": slot_value}
     def validate_surname(
         self,
@@ -163,7 +176,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
             dispatcher.utter_message(text="We only accept valid surnames.")
             return {"surname": None}
 
-        dispatcher.utter_message(text=f"OK! Your surname is {slot_value}.")
+        dispatcher.utter_message(text=f"And the surname is: {slot_value}.")
         month_slot_value = tracker.get_slot('month').lower()
         month_number = month_mapping.get(month_slot_value)
         number_of_booking_days = int(tracker.get_slot('number_of_days'))

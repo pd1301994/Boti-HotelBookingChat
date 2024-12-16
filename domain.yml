@@ -70,7 +70,7 @@ responses:
   utter_say_surname:
   - text: Your surname is {surname}
   utter_ask_month:
-  - text: 'Tell me the month :) '
+  - text: 'May I inquire which month you would prefer for your booking?'
     buttons:
     - title: January
       payload: '/start_booking{{"month": "January"}}'
@@ -78,8 +78,26 @@ responses:
       payload: '/start_booking{{"month": "February"}}'
     - title: March
       payload: '/start_booking{{"month": "March"}}'
+    - title: April
+      payload: '/start_booking{{"month": "April"}}'
+    - title: May
+      payload: '/start_booking{{"month": "May"}}'
+    - title: June
+      payload: '/start_booking{{"month": "June"}}'
+    - title: July
+      payload: '/start_booking{{"month": "July"}}'
+    - title: August
+      payload: '/start_booking{{"month": "August"}}'
+    - title: September
+      payload: '/start_booking{{"month": "September"}}'
+    - title: October
+      payload: '/start_booking{{"month": "October"}}'
+    - title: November
+      payload: '/start_booking{{"month": "November"}}'
+    - title: December
+      payload: '/start_booking{{"month": "December"}}'
   utter_ask_day:
-  - text: Hello! Which Day.
+  - text: "On which day would you like to make the booking?"
     buttons:
     - title: '1'
       payload: '/start_booking{{"day": "1"}}'
@@ -87,8 +105,65 @@ responses:
       payload: '/start_booking{{"day": "2"}}'
     - title: '3'
       payload: '/start_booking{{"day": "3"}}'
+    - title: '4'
+      payload: '/start_booking{{"day": "4"}}'
+    - title: '5'
+      payload: '/start_booking{{"day": "5"}}'
+    - title: '6'
+      payload: '/start_booking{{"day": "6"}}'
+    - title: '7'
+      payload: '/start_booking{{"day": "7"}}'
+    - title: '8'
+      payload: '/start_booking{{"day": "8"}}'
+    - title: '9'
+      payload: '/start_booking{{"day": "9"}}'
+    - title: '10'
+      payload: '/start_booking{{"day": "10"}}'
+    - title: '11'
+      payload: '/start_booking{{"day": "11"}}'
+    - title: '12'
+      payload: '/start_booking{{"day": "12"}}'
+    - title: '13'
+      payload: '/start_booking{{"day": "13"}}'
+    - title: '14'
+      payload: '/start_booking{{"day": "14"}}'
+    - title: '15'
+      payload: '/start_booking{{"day": "15"}}'
+    - title: '16'
+      payload: '/start_booking{{"day": "16"}}'
+    - title: '17'
+      payload: '/start_booking{{"day": "17"}}'
+    - title: '18'
+      payload: '/start_booking{{"day": "18"}}'
+    - title: '19'
+      payload: '/start_booking{{"day": "19"}}'
+    - title: '20'
+      payload: '/start_booking{{"day": "20"}}'
+    - title: '21'
+      payload: '/start_booking{{"day": "21"}}'
+    - title: '22'
+      payload: '/start_booking{{"day": "22"}}'
+    - title: '23'
+      payload: '/start_booking{{"day": "23"}}'
+    - title: '24'
+      payload: '/start_booking{{"day": "24"}}'
+    - title: '25'
+      payload: '/start_booking{{"day": "25"}}'
+    - title: '26'
+      payload: '/start_booking{{"day": "26"}}'
+    - title: '27'
+      payload: '/start_booking{{"day": "27"}}'
+    - title: '28'
+      payload: '/start_booking{{"day": "28"}}'
+    - title: '29'
+      payload: '/start_booking{{"day": "29"}}'
+    - title: '30'
+      payload: '/start_booking{{"day": "30"}}'
+    - title: '31'
+      payload: '/start_booking{{"day": "31"}}'
+
   utter_ask_number_of_days:
-  - text: How long would you like to stay?.
+  - text: How long would you like to stay?
     buttons:
     - title: '1'
       payload: '/start_booking{{"number_of_days": "1"}}'
@@ -101,6 +176,8 @@ responses:
     - title: '5'
       payload: '/start_booking{{"number_of_days": "5"}}'
     - title: '6'
+      payload: '/start_booking{{"number_of_days": "6"}}'
+    - title: '7'
       payload: '/start_booking{{"number_of_days": "6"}}'
   utter_ask_number_of_guests:
   - text: How many guests?.

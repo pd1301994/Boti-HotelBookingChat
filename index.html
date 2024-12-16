@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        #messages {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        .loading {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="messages"></div>
+    <input type="text" id="user-input" placeholder="Escribe un mensaje...">
+    <button id="send-btn">Enviar</button>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message) {
+                appendMessage('Tú', message);
+                userInput.value = ''; // Limpiar el campo de entrada
+                appendMessage('Bot', '<span class="loading">Cargando...</span>'); // Indicador de carga
+                sendMessageToRasa(message);
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const messageElement = document.createElement('div');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Desplazar hacia abajo
+        }
+
+        async function sendMessageToRasa(message) {
+            try {
+                const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "sender": "user_19", "message": message })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red: ' + response.statusText);
+                }
+
+                const data = await response.json();
+                data.forEach(res => {
+                    if (res.text) {
+                        appendMessage('Bot', res.text);
+                    }
+                    if (res.buttons) {
+                        appendButtonOptions(res.buttons); // Llama a la función para agregar botones
+                    }
+                });
+            } catch (error) {
+                console.error('Error al enviar el mensaje:', error);
+                appendMessage('Bot', 'Hubo un error al enviar el mensaje.');
+            }
+        }
+
+        function appendButtonOptions(buttons) {
+            const dropdown = document.createElement('select');
+            dropdown.id = 'day-dropdown';
+            dropdown.onchange = function() {
+                const selectedValue = this.value;
+                if (selectedValue) {
+                    // Envía el payload del botón seleccionado
+                    sendMessageToRasa(selectedValue);
+                    this.value = ''; // Reinicia el dropdown
+                }
+            };
+
+            const defaultOption = document.createElement('option');
+            defaultOption.text = 'Selecciona un día';
+            defaultOption.value = '';
+            dropdown.appendChild(defaultOption);
+
+            buttons.forEach(button => {
+                const option = document.createElement('option');
+                option.text = button.title;
+                option.value = button.payload; // Utiliza el payload del botón
+                dropdown.appendChild(option);
+            });
+
+            messagesDiv.appendChild(dropdown);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Desplazar hacia abajo
+        }
+    </script>
+</body>
+</html>

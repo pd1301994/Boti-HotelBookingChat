@@ -103,7 +103,7 @@ responses:
     - title: '6'
       payload: '/start_booking{{"number_of_days": "6"}}'
   utter_ask_number_of_guests:
-  - text: How long would you like to stay?.
+  - text: How many guests?.
     buttons:
     - title: '1'
       payload: '/start_booking{{"number_of_guests": "1"}}'

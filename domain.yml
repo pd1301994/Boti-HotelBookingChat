@@ -3,6 +3,26 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+#small talk
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+#FAQ
+- ask_services_extra_bed
+- ask_services_breakfast
+- ask_services_veganoption
+- ask_services_transferairport
+- ask_services_checkin
+- ask_services_activities
+- ask_services_wellness
+- ask_services_facilities
+- ask_services_parking
+- ask_services_pets
+#booking
 - provide_name
 - provide_surname
 - start_booking
@@ -61,6 +81,43 @@ slots:
       entity: surname
   
 responses:
+  utter_greet:
+    - text: "Hey! How are you?" 
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye!"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+#FAQ
+  utter_ask_services_extra_bed:
+    - text: "We can provide an extra bed for your room. Please inform the front desk in advance so we can arrange it for you."
+  utter_ask_services_breakfast:
+    - text: "Breakfast is included in your stay. It is served daily from 7:00 AM to 10:00 AM."
+  utter_ask_services_veganoption:
+    - text: "Absolutely, we offer both vegetarian and vegan options on our menu. Let us know if you have specific dietary requirements."
+  utter_ask_services_transferairport:
+    - text: "Unfortunately, we do not offer an airport transfer service, but we’d be happy to assist you in booking a taxi."
+  utter_ask_services_checkin:
+    - text: "Check-in begins at 3:00 PM, and check-out is at 11:00 AM. Let us know if you require any adjustments."
+  utter_ask_services_activities:
+    - text: "We offer a variety of activities, including access to our pool, fitness classes, and daily workshops."
+  utter_ask_services_wellness:
+    - text: "Our wellness center features a range of services, including massages, spa treatments, and a relaxation lounge."
+  utter_ask_services_facilities:
+    - text: "Our hotel offers exceptional facilities, including a swimming pool, tennis courts, a gym, and conference rooms."
+  utter_ask_services_parking:
+    - text: "Yes, we have on-site parking available for our guests. Please let us know in advance to reserve a spot."
+  utter_ask_services_pets:
+    - text: "We welcome pets! Please let us know before your arrival so we can provide everything needed for your furry friend."
+  #booking
   utter_ask_name:
   - text: What is your name?
   utter_ask_surname:

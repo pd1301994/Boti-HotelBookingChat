@@ -159,7 +159,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
         """Validate `name` value."""
         
         if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
-            dispatcher.utter_message(text="We only accept valid names.")
+            dispatcher.utter_message(text="Sorry, I didn´t get your name. Could you repeat it?")
             return {"name": None}
         dispatcher.utter_message(text=f"Hey, {slot_value}.")
         return {"name": slot_value}
@@ -173,7 +173,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
         """Validate `surname` value."""
         
         if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
-            dispatcher.utter_message(text="We only accept valid surnames.")
+            dispatcher.utter_message(text="Sorry, I didn´t get your surname. Could you repeat it?")
             return {"surname": None}
 
         dispatcher.utter_message(text=f"And the surname is: {slot_value}.")

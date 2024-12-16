@@ -99,3 +99,160 @@ nlu:
     - My surname is [dedios](surname)
     - My surname is [DEDIIIS](surname)
     - My surname is [DEDIOS](surname)
+
+# FAQ
+- intent: ask_services_extra_bed
+  examples: |
+    - Can I put an extra bed?
+    - Is it possible to add an extra person in the room?
+    - Is it feasible to use another mattress?
+    - Can you provide an additional bed for my room?
+    - Is there an option for an extra bed?
+    - And can I bring my children?
+
+- intent: ask_services_breakfast
+  examples: |
+    - Is breakfast included in the price?
+    - Do I have to pay for breakfast separately?
+    - Is breakfast part of the booking?
+    - Are meals provided with the room?
+    - What time is breakfast served?
+
+- intent: ask_services_veganoption
+  examples: |
+    - Do you have vegan options?
+    - Can I order a vegetarian dish?
+    - Are there any plant-based meals available?
+    - Does the menu include vegan options?
+    - Is there something for vegans in the restaurant?
+
+- intent: ask_services_transferairport
+  examples: |
+    - Is there a transfer service to the airport?
+    - Can I book an airport transfer with the hotel?
+    - Does the hotel provide transportation to the airport?
+    - Can you help arrange an airport taxi?
+    - Do you have a shuttle to the airport?
+
+- intent: ask_services_checkin
+  examples: |
+    - What time is check-in?
+    - Can I check in earlier?
+    - When do I have to leave the room?
+    - Is late check-out available?
+    - What are the check-in and check-out hours?
+
+- intent: ask_services_activities
+  examples: |
+    - What activities are included in the hotel?
+    - Does the hotel have any daily activities?
+    - Are there any courses or workshops available?
+    - Can I join a yoga class during my stay?
+    - What recreational activities does the hotel offer?
+
+- intent: ask_services_wellness
+  examples: |
+    - Do you have a spa in the hotel?
+    - Can I book a massage during my stay?
+    - What wellness options do you offer?
+    - Is there a wellness center in the hotel?
+    - Are there any relaxation services available?
+
+- intent: ask_services_facilities
+  examples: |
+    - What facilities are available at the hotel?
+    - Does the hotel have a swimming pool?
+    - Is there a gym I can use?
+    - What amenities are included in the hotel?
+    - Do you have sports facilities?
+
+- intent: ask_services_parking
+  examples: |
+    - Is there parking available at the hotel?
+    - Can I park my car at the hotel?
+    - Does the hotel provide parking spaces?
+    - Is parking included in the stay?
+    - How can I reserve a parking spot?
+    - Can I come by car?
+
+
+- intent: ask_services_pets
+  examples: |
+    - Are pets allowed in the hotel?
+    - Can I bring my dog with me?
+    - Does the hotel accept animals?
+    - Is there a fee for pets?
+    - Are there any restrictions for pets in the hotel?
+
+
+
+#SMALL TALK
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

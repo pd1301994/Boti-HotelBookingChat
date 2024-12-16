@@ -1,6 +1,56 @@
 version: "3.1"
 stories:
-- story: interactive_story_1
+- story: Ask for an extra bed
+  steps:
+  - intent: ask_services_extra_bed
+  - action: utter_ask_services_extra_bed
+
+- story: Ask about breakfast
+  steps:
+  - intent: ask_services_breakfast
+  - action: utter_ask_services_breakfast
+
+- story: Ask about vegan options
+  steps:
+  - intent: ask_services_veganoption
+  - action: utter_ask_services_veganoption
+
+- story: Ask about airport transfer
+  steps:
+  - intent: ask_services_transferairport
+  - action: utter_ask_services_transferairport
+
+- story: Ask about check-in and check-out times
+  steps:
+  - intent: ask_services_checkin
+  - action: utter_ask_services_checkin
+
+- story: Ask about activities
+  steps:
+  - intent: ask_services_activities
+  - action: utter_ask_services_activities
+
+- story: Ask about wellness services
+  steps:
+  - intent: ask_services_wellness
+  - action: utter_ask_services_wellness
+
+- story: Ask about hotel facilities
+  steps:
+  - intent: ask_services_facilities
+  - action: utter_ask_services_facilities
+
+- story: Ask about parking
+  steps:
+  - intent: ask_services_parking
+  - action: utter_ask_services_parking
+
+- story: Ask about pets
+  steps:
+  - intent: ask_services_pets
+  - action: utter_ask_services_pets
+
+- story: booking a room
   steps:
   - intent: start_booking
   - action: booking_form
@@ -16,4 +66,23 @@ stories:
   - active_loop: null
   - action: action_reset_slots
   
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
 

@@ -7,6 +7,7 @@ from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk import Action, Tracker
+import actions.programs.send_mail as sm
 
 
 DAY = [str(day) for day in range(1, 32)]
@@ -85,6 +86,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
             )
             return {"month": None}
         dispatcher.utter_message(text=f"Perfect, you chose: {slot_value}")
+        sm.send_mail("2024-01-01", "2024-01-07", 2) 
         return {"month": slot_value}
     def validate_day(
         self,
@@ -209,6 +211,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
                     text=f"Your details have been saved: {tracker.get_slot('month')}, "
                         f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
                 )
+                
             else:
                 dispatcher.utter_message(
                     text=f"Sorry {tracker.get_slot('name')} the room you wanted is book on the {tracker.get_slot('day')} of {tracker.get_slot('month')}, try another date:()")
@@ -221,3 +224,4 @@ class ActionResetSlots(Action):
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         return [tracker.SlotSet("name", None), tracker.SlotSet("surname", None)]
+

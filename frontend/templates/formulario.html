@@ -1,13 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Formulario de Email</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="templates/backgroundimages/pclogo1.JPG">
+    <title>PC Hotels Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes backgroundAnimation {
+            0% { background-image: url('templates/backgroundimages/image1.jpg'); }
+            33% { background-image: url('templates/backgroundimages/image2.jpg'); }
+            66% { background-image: url('templates/backgroundimages/image3.jpg'); }
+            100% { background-image: url('templates/backgroundimages/image1.jpg'); }
+        }
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        #messages div {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #140C3C;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ECCE70; 
+            padding: 10px;
+        }
+
+        #header img {
+            max-width: 120px;
+            margin-right: 10px;
+        }
+
+        #title {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: 'Merriweather', serif; 
+            color: #ECCE70;
+        }
+        
+        #main-section {
+        background-size: cover;
+        background-position: center;
+        animation: backgroundAnimation 15s infinite;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 80vh; /* Cambiado a 80vh para menor altura */
+    }
+
+
+        #form-container {
+            width: 90%; /* Aumentado a 95% */
+            min-height: 90%; /* Aumentado a 600px */
+            padding: 60px; /* Aumentado a 60px */
+            background: linear-gradient(to bottom,#0d0825, #241a5a );
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            color: #ECCE70;
+            display: flex;
+            
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ECCE70;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 90%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            width: 50%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            background-color: #ECCE70;
+            color: #000000;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #40376d;
+        }
+
+        #footer {
+            text-align: center;
+            background-color: #140C3C;
+            color: #ECCE70;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <form action="/submit" method="post">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Enviar</button>
-    </form>
+    <!-- Header -->
+    <div id="header">
+        <img src="templates/backgroundimages/pclogo1.JPG" alt="Logo" style="max-width: 180px; margin-right: 10px;">
+        <div id="title">PC HOTELS CHATBOT</div>
+    </div>
+
+    <!-- Main Section -->
+    <div id="main-section">
+        <div id="container">
+            <!-- Chat Container -->
+            <div id="form-container">
+                <h2>Welcome</h2>
+                <form action="/submit" method="post">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" name="surname" required>
+
+                    <!-- Contenedor para el botón centrado -->
+                    <div class="button-container">
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+        Page Author: Paula de Dios Oliver | Property of: PC Hotels
+    </div>
+
 </body>
 </html>

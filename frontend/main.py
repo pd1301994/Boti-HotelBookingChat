@@ -1,14 +1,24 @@
 import csv
 import os
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,FileResponse
 from fastapi.templating import Jinja2Templates
 import subprocess
+from flask import Flask, send_from_directory
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
+@app.get("/templates/backgroundimages/{filename}")
+async def get_image(filename: str):
+    image_path = os.path.join("templates", "backgroundimages", filename)
+    if os.path.exists(image_path):
+        return FileResponse(image_path)
+    return {"error": "Image not found"}
+
 # Página del formulario
+
 @app.get("/", response_class=HTMLResponse)
 async def get_form(request: Request):
     return templates.TemplateResponse("formulario.html", {"request": request})

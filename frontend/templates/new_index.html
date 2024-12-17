@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="templates/backgroundimages/pclogo1.JPG">
+    <title>PC Hotels - Formulario de Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes backgroundAnimation {
+            0% { background-image: url('templates/backgroundimages/image1.jpg'); }
+            33% { background-image: url('templates/backgroundimages/image2.jpg'); }
+            66% { background-image: url('templates/backgroundimages/image3.jpg'); }
+            100% { background-image: url('templates/backgroundimages/image1.jpg'); }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #140C3C;
+        }
+
+        #main-section {
+            background-size: cover;
+            background-position: center;
+            animation: backgroundAnimation 15s infinite;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh; /* Altura total */
+        }
+
+        #form-container {
+            width: 70%; /* Aumenta el ancho al 70% */
+            min-height: 500px; /* Establece una altura mínima para el contenedor */
+            padding: 40px; /* Aumenta el padding */
+            background: linear-gradient(to bottom, #140C3C, #f0f8ff);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Aumenta la sombra */
+            color: #ECCE70;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ECCE70;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 22px; /* Tamaño de fuente aumentado */
+            font-weight: bold; /* Texto en negrita */
+            color: #000000; /* Color del texto */
+            text-align: center; /* Centra el texto del label */
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 90%; /* Aumenta el ancho a 90% */
+            padding: 15px; /* Aumenta el padding */
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 18px; /* Aumenta el tamaño de la fuente */
+        }
+
+        /* Estilos para el botón centrado */
+        .button-container {
+            display: flex; /* Usar flexbox para centrar el botón */
+            justify-content: center; /* Centra horizontalmente */
+        }
+
+        button {
+            width: 60%; /* Aumenta el ancho al 60% */
+            padding: 15px; /* Aumenta el padding */
+            font-size: 18px; /* Aumenta el tamaño de la fuente */
+            border: none;
+            border-radius: 4px;
+            background-color: #140C3C;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #40376d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Section -->
+    <div id="main-section">
+        <div id="form-container">
+            <h2>Registro de Usuario</h2>
+            <form action="/submit" method="post">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="surname">Apellido:</label>
+                <input type="text" id="surname" name="surname" required>
+
+                <!-- Contenedor para el botón centrado -->
+                <div class="button-container">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

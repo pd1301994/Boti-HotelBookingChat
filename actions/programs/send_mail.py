@@ -1,11 +1,11 @@
 import smtplib
 from email.mime.text import MIMEText
-def send_mail(fecha_entrada, fecha_salida, numero_huespedes):
+def send_mail(booking_id,email_client,name, surname,entry_date, exit_date, Room_Type):
     sender_email = "botipchotels@gmail.com"
     sender_password = "gisk xakl hylw usov"
-    receiver_email = "ps.dedios94@gmail.com"
+    receiver_email = email_client
     
-    subject = "Confirmación de Reserva"
+    subject = "Booking confirmation"
 
     # Crear el mensaje en HTML
     body = f"""
@@ -14,7 +14,7 @@ def send_mail(fecha_entrada, fecha_salida, numero_huespedes):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Confirmación de Reserva</title>
+        <title>Booking confirmation</title>
         <style>
             body {{
                 font-family: Arial, sans-serif;
@@ -54,11 +54,13 @@ def send_mail(fecha_entrada, fecha_salida, numero_huespedes):
     </head>
     <body>
         <div class="container">
-            <h1>Reserva Confirmada</h1>
-            <p>Usted se hospedará en el <strong>PC HOTEL</strong> desde <strong>{fecha_entrada}</strong> hasta <strong>{fecha_salida}</strong>.</p>
-            <p>Número de huéspedes: <strong>{numero_huespedes}</strong></p>
-            <div class="footer">
-                <p>¡Esperamos darle la bienvenida pronto!</p>
+            <h1>Booking confirmed!</h1>
+            <h2>Booking number: {booking_id} </h2>
+                <p>Dear <strong>{name} {surname}</strong>,</p>
+                <p>You will be staying at <strong>PC HOTEL</strong> from <strong>{entry_date}</strong> to <strong>{exit_date}</strong>.</p>
+                <p>You will have a: <strong>{Room_Type}</strong> room</p>
+                <div class="footer">
+                    <p>We look forward to welcoming you soon!</p>
             </div>
         </div>
     </body>

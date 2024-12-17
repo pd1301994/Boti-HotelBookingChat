@@ -68,7 +68,6 @@ class ValidateSimplePizzaForm(FormValidationAction):
             )
             return {"month": None}
         dispatcher.utter_message(text=f"Perfect, you chose: {slot_value}")
-        sm.send_mail("2024-01-01", "2024-01-07", 2) 
         return {"month": slot_value}
     def validate_day(
         self,
@@ -203,6 +202,7 @@ class ValidateSimplePizzaForm(FormValidationAction):
                     text=f"Your details have been saved: {tracker.get_slot('month')}, "
                         f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
                 )
+                sm.send_mail(id_booking,email_client,tracker.get_slot('name'),slot_value,entry_date, exit_date, room_type)
                 
             else:
                 dispatcher.utter_message(

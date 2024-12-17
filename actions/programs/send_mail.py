@@ -81,5 +81,3 @@ def send_mail(fecha_entrada, fecha_salida, numero_huespedes):
     except Exception as e:
         print(f"Error al enviar el correo: {e}")
 
-# Ejemplo de uso
-send_mail("2024-01-01", "2024-01-07", 2)  # Aquí puedes cambiar las fechas y el número de huéspedes

@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 from datetime import timedelta
+import os
 from typing import Text, List, Any, Dict
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
@@ -8,6 +9,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk import Action, Tracker
 import actions.programs.send_mail as sm
+import actions.programs.functionalities as f
 
 
 DAY = [str(day) for day in range(1, 32)]
@@ -31,30 +33,10 @@ month_mapping = {
     "november": "11",
     "december": "12"
 }
-
-def is_room_available(room_type, entry_date, exit_date, bookings):
-    """Comprueba la disponibilidad de la habitación para las fechas solicitadas."""
-    for booking in bookings:
-        if booking['Room_Type'] == room_type:
-            # Verificar si las fechas se solapan
-            if not (exit_date <= booking['Entry_Date'] or entry_date >= booking['Exit_Date']):
-                return False  
-    return True
 file_path = "names.csv"
-def load_bookings():
-    bookings = []
-    try:
-        with open(file_path, mode='r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                # Limpiar espacios adicionales en las fechas antes de convertirlas
-                row['Entry_Date'] = datetime.strptime(row['Entry_Date'].strip(), "%Y-%m-%d")
-                row['Exit_Date'] = datetime.strptime(row['Exit_Date'].strip(), "%Y-%m-%d")
-                bookings.append(row)
-    except FileNotFoundError:
-        # Si el archivo no existe, se crea una lista vacía
-        print("File was not found.")
-    return bookings
+
+
+
 def get_room_type(guest_count):
     if guest_count == 1:
         return "Single"
@@ -166,12 +148,12 @@ class ValidateSimplePizzaForm(FormValidationAction):
         dispatcher.utter_message(text=f"Hey, {slot_value}.")
         return {"name": slot_value}
     def validate_surname(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+        ) -> Dict[Text, Any]:
         """Validate `surname` value."""
         
         if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
@@ -185,24 +167,34 @@ class ValidateSimplePizzaForm(FormValidationAction):
         formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
         entry_date = datetime.strptime(formatted_date, "%Y-%m-%d")
         exit_date = entry_date + timedelta(days=number_of_booking_days)
+        room_type = get_room_type(number_of_booking_days)
+
         try:
-            bookings = load_bookings()
-            
+            bookings = f.load_bookings(file_path)
+            if len(bookings)>=2:
+                last_row  = bookings[-1]
+                id_booking = list(last_row.values())[0]
+                email_client =  list(last_row.values())[1]
+            file_path_pop = f.remove_last_row(file_path)     
             room_type = get_room_type(number_of_booking_days)
             
-            if is_room_available(room_type,entry_date, exit_date, bookings):
+            if f.is_room_available(room_type,entry_date, exit_date, bookings):
                 new_booking = {
 
-                'ID_Boking': str(len(bookings) + 1),  
+                'ID_Boking': id_booking,  
+                'email': email_client,
                 'Room_Type': room_type,
                 'Entry_Date': entry_date.strftime('%Y-%m-%d'),
                 'Exit_Date': exit_date.strftime("%Y-%m-%d"),
                 'Name': tracker.get_slot('name'),
                 'surname': slot_value
 
-            }        
-                with open(file_path, mode='a', newline='') as file:
-                    writer = csv.DictWriter(file, fieldnames=['ID_Boking','Room_Type','Entry_Date','Exit_Date','Name','surname'])
+            }
+                print ("lets see if we reach here")
+                
+                   
+                with open(file_path_pop, mode='a', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=['ID_Boking','email','Room_Type','Entry_Date','Exit_Date','Name','surname'])
                     if file.tell() == 0:
                         writer.writeheader()
                     writer.writerow(new_booking)

@@ -9,8 +9,8 @@ def send_mail(booking_id, email_client, name, surname, entry_date, exit_date, Ro
     
     subject = "Booking confirmation"
 
-    formatted_entry_date = entry_date.strftime("%d de %B de %Y")  # Ej: 14 de julio de 2025
-    formatted_exit_date = exit_date.strftime("%d de %B de %Y")    # Ej: 17 de julio de 2025
+    formatted_entry_date = entry_date.strftime("%d of %B de %Y")  # Ej: 14 de julio de 2025
+    formatted_exit_date = exit_date.strftime("%d of %B de %Y")    # Ej: 17 de julio de 2025
 
     # Crear el mensaje en HTML
     body = f"""
@@ -48,6 +48,8 @@ def send_mail(booking_id, email_client, name, surname, entry_date, exit_date, Ro
                 line-height: 1.5;
                 margin: 10px 0;
                 text-align: center;
+                color: white;
+
             }}
             .footer {{
                 margin-top: 20px;

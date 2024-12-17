@@ -38,6 +38,7 @@ file_path = "names.csv"
 
 
 def get_room_type(guest_count):
+    guest_count = int(guest_count)
     if guest_count == 1:
         return "Single"
     elif guest_count == 2:
@@ -137,7 +138,8 @@ class ValidateBookingForm(FormValidationAction):
         formatted_date = f"2025-{month_number}-{tracker.get_slot('day').zfill(2)}"
         entry_date = datetime.strptime(formatted_date, "%Y-%m-%d")
         exit_date = entry_date + timedelta(days=number_of_booking_days)
-        room_type = get_room_type(number_of_booking_days)
+        noguest = int(slot_value)
+        room_type = get_room_type(noguest)
         try:
             bookings = f.load_bookings(file_path)
             if len(bookings)>=1:

@@ -45,7 +45,7 @@ def get_room_type(guest_count):
     elif 3 <= guest_count <= 7:
         return "Familiar"
 
-class ValidateSimplePizzaForm(FormValidationAction):
+class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
     def validate_month(
@@ -127,39 +127,10 @@ class ValidateSimplePizzaForm(FormValidationAction):
             return {"number_of_guests": None}
         if not slot_value:
             dispatcher.utter_message(
-                text=f"Nope {NOGUESTS}."
+                text=f"Does not work {NOGUESTS}."
             )
             return {"number_of_guests": None}
         dispatcher.utter_message(text=f"You will be:  {slot_value} people.")
-        return {"number_of_guests": slot_value}
-    def validate_name(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Validate `name` value."""
-        
-        if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
-            dispatcher.utter_message(text="Sorry, I didn´t get your name. Could you repeat it?")
-            return {"name": None}
-        dispatcher.utter_message(text=f"Hey, {slot_value}.")
-        return {"name": slot_value}
-    def validate_surname(
-            self,
-            slot_value: Any,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: DomainDict,
-        ) -> Dict[Text, Any]:
-        """Validate `surname` value."""
-        
-        if not slot_value or not slot_value.strip():  # Check if slot_value is empty or just whitespace
-            dispatcher.utter_message(text="Sorry, I didn´t get your surname. Could you repeat it?")
-            return {"surname": None}
-
-        dispatcher.utter_message(text=f"And the surname is: {slot_value}.")
         month_slot_value = tracker.get_slot('month').lower()
         month_number = month_mapping.get(month_slot_value)
         number_of_booking_days = int(tracker.get_slot('number_of_days'))
@@ -167,53 +138,56 @@ class ValidateSimplePizzaForm(FormValidationAction):
         entry_date = datetime.strptime(formatted_date, "%Y-%m-%d")
         exit_date = entry_date + timedelta(days=number_of_booking_days)
         room_type = get_room_type(number_of_booking_days)
-
         try:
             bookings = f.load_bookings(file_path)
-            if len(bookings)>=2:
+            if len(bookings)>=1:
                 last_row  = bookings[-1]
                 id_booking = list(last_row.values())[0]
                 email_client =  list(last_row.values())[1]
+                name_client =  list(last_row.values())[2]
+                surnamename_client =  list(last_row.values())[3]
+
+
             file_path_pop = f.remove_last_row(file_path)     
-            room_type = get_room_type(number_of_booking_days)
             
             if f.is_room_available(room_type,entry_date, exit_date, bookings):
                 new_booking = {
 
                 'ID_Boking': id_booking,  
                 'email': email_client,
+                'name': name_client,
+                'surname': surnamename_client,
                 'Room_Type': room_type,
                 'Entry_Date': entry_date.strftime('%Y-%m-%d'),
-                'Exit_Date': exit_date.strftime("%Y-%m-%d"),
-                'Name': tracker.get_slot('name'),
-                'surname': slot_value
+                'Exit_Date': exit_date.strftime("%Y-%m-%d"),              
 
             }
-                print ("lets see if we reach here")
-                
+              
                    
                 with open(file_path_pop, mode='a', newline='') as file:
-                    writer = csv.DictWriter(file, fieldnames=['ID_Boking','email','Room_Type','Entry_Date','Exit_Date','Name','surname'])
+                    writer = csv.DictWriter(file, fieldnames=['ID_Boking','email','name','surname','Room_Type','Entry_Date','Exit_Date'])
                     if file.tell() == 0:
                         writer.writeheader()
                     writer.writerow(new_booking)
                 
                 dispatcher.utter_message(
                     text=f"Your details have been saved: {tracker.get_slot('month')}, "
-                        f"{tracker.get_slot('day')}, {tracker.get_slot('name')}, {slot_value}."
+                        f"{tracker.get_slot('day')}, {name_client}, {slot_value}."
                 )
-                sm.send_mail(id_booking,email_client,tracker.get_slot('name'),slot_value,entry_date, exit_date, room_type)
+               
+                sm.send_mail(id_booking,email_client,name_client,surnamename_client,entry_date, exit_date, room_type)
                 
             else:
                 dispatcher.utter_message(
-                    text=f"Sorry {tracker.get_slot('name')} the room you wanted is book on the {tracker.get_slot('day')} of {tracker.get_slot('month')}, try another date:()")
+                    text=f"Sorry {name_client} the room you wanted is book on the {tracker.get_slot('day')} of {tracker.get_slot('month')}, try another date)")
         except Exception as e:
             dispatcher.utter_message(text=f"An error occurred while saving your details: {str(e)}")
-        return {"surname": slot_value}  
+        return {"number_of_guests": slot_value}
 class ActionResetSlots(Action):
     def name(self) -> str:
         return "action_reset_slots"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
-        return [tracker.SlotSet("name", None), tracker.SlotSet("surname", None)]
+        return [tracker.SlotSet("month", None), tracker.SlotSet("day", None), 
+                tracker.SlotSet("number_of_days", None),tracker.SlotSet("number_of_guests", None)]
 

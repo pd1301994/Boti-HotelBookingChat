@@ -60,8 +60,6 @@ stories:
       - day: '1'
       - number_of_days: '2'
       - number_of_guests: '6'
-      - name: PAula
-      - surname: DDDDD
   - action: action_deactivate_loop
   - active_loop: null
   - action: action_reset_slots

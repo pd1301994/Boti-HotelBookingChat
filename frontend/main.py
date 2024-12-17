@@ -54,7 +54,6 @@ async def process_form(
         with open(names_csv_path, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(rows)
-        print("Datos añadidos al archivo CSV.")
     except Exception as e:
         print(f"Error al guardar los datos en names.csv: {e}")
         return templates.TemplateResponse("index.html", {"request": request, "email": email, "error": "The booking could not be saved."})

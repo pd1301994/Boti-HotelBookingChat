@@ -23,16 +23,12 @@ intents:
 - ask_services_parking
 - ask_services_pets
 #booking
-- provide_name
-- provide_surname
 - start_booking
 entities:
 - month
 - day
 - number_of_days
 - number_of_guests
-- name
-- surname
 forms:
   booking_form:
     required_slots:
@@ -40,8 +36,6 @@ forms:
     - day
     - number_of_days
     - number_of_guests
-    - name
-    - surname
 slots:
   month:
     type: text
@@ -67,18 +61,6 @@ slots:
     mappings:
     - type: from_entity
       entity: number_of_guests
-  name:
-    type: text
-    influence_conversation: false
-    mappings:
-    - type: from_entity
-      entity: name
-  surname:
-    type: text
-    influence_conversation: false
-    mappings:
-    - type: from_entity
-      entity: surname
   
 responses:
   utter_greet:
@@ -118,14 +100,6 @@ responses:
   utter_ask_services_pets:
     - text: "We welcome pets! Please let us know before your arrival so we can provide everything needed for your furry friend."
   #booking
-  utter_ask_name:
-  - text: What is your name?
-  utter_ask_surname:
-  - text: What is your surname?
-  utter_say_name:
-  - text: Your name is {name}
-  utter_say_surname:
-  - text: Your surname is {surname}
   utter_ask_month:
   - text: 'May I inquire which month you would prefer for your booking?'
     buttons:

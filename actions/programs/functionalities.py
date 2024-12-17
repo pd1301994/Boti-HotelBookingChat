@@ -41,10 +41,6 @@ def is_room_available(room_type, entry_date, exit_date, names):
                 return False  
     return True
 
-import csv
-
-
-
 def remove_last_row(file_path):
     try:
         # Read all rows from the CSV
@@ -60,9 +56,6 @@ def remove_last_row(file_path):
         with open(file_path, mode='w', newline='') as write_file:
             writer = csv.writer(write_file)
             writer.writerows(rows)  # Write all remaining rows (including header)
-        
-
-        print("The last row has been successfully removed.")
         return file_path
 
     except Exception as e:

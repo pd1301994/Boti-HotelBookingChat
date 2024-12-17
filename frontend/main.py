@@ -1,11 +1,9 @@
 import csv
 import os
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse,FileResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 import subprocess
-from flask import Flask, send_from_directory
-
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -18,16 +16,19 @@ async def get_image(filename: str):
     return {"error": "Image not found"}
 
 # Página del formulario
-
 @app.get("/", response_class=HTMLResponse)
 async def get_form(request: Request):
     return templates.TemplateResponse("formulario.html", {"request": request})
 
 @app.post("/submit")
-async def process_form(email: str = Form(...)):
+async def process_form(
+    request: Request,  # Asegurarse de incluir el request aquí
+    email: str = Form(...),
+    name: str = Form(...),
+    surname: str = Form(...)
+):
     # Rutas de los archivos CSV
     names_csv_path = os.path.join("..", "names.csv")  # Ruta al archivo names.csv
-    #booked_csv_path = os.path.join("..", "booked.csv")  # Ruta al archivo booked.csv
 
     # Obtener el último booking_id
     try:
@@ -43,26 +44,23 @@ async def process_form(email: str = Form(...)):
             last_id = 0 
     except Exception as e:
         print(f"Error al leer el archivo names.csv: {e}")
-        return templates.TemplateResponse("index.html", {"request": {}, "email": email, "error": "Error al procesar la reserva."})
+        return templates.TemplateResponse("index.html", {"request": request, "email": email, "error": "Error al procesar la reserva."})
 
+    # Guardar los datos en el archivo CSV
     try:
-        if last_id==0:
-            new_row = [1, email, ""]
-        new_row = [last_id + 1, email, ""]
+        new_row = [last_id + 1, email, name, surname]
         rows.append(new_row)
 
         with open(names_csv_path, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(rows)
-        print("Email añadido al archivo CSV.")
+        print("Datos añadidos al archivo CSV.")
     except Exception as e:
-        print(f"Error al guardar el email en booked.csv: {e}")
-        return templates.TemplateResponse("index.html", {"request": {}, "email": email, "error": "Error al guardar la reserva."})
+        print(f"Error al guardar los datos en names.csv: {e}")
+        return templates.TemplateResponse("index.html", {"request": request, "email": email, "error": "The booking could not be saved."})
 
-    # Llama a otro programa Python y pasa el email
-    subprocess.run(["python", "welcome_script.py", email])
+    return templates.TemplateResponse("index.html", {"request": request, "email": email, "name": name, "surname": surname})
 
-    return templates.TemplateResponse("index.html", {"request": {}, "email": email})
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)

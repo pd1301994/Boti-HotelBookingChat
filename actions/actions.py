@@ -36,7 +36,7 @@ month_mapping = {
 file_path = "names.csv"
 
 
-
+#Mapping the room type according to the number of guests
 def get_room_type(guest_count):
     guest_count = int(guest_count)
     if guest_count == 1:
@@ -131,6 +131,7 @@ class ValidateBookingForm(FormValidationAction):
                 text=f"Does not work {NOGUESTS}."
             )
             return {"number_of_guests": None}
+        # mapping of all the information so its in the correct format to put iut on the csv
         dispatcher.utter_message(text=f"You will be:  {slot_value} people.")
         month_slot_value = tracker.get_slot('month').lower()
         month_number = month_mapping.get(month_slot_value)

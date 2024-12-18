@@ -15,38 +15,37 @@ async def get_image(filename: str):
         return FileResponse(image_path)
     return {"error": "Image not found"}
 
-# Página del formulario
+# Form page
 @app.get("/", response_class=HTMLResponse)
 async def get_form(request: Request):
     return templates.TemplateResponse("formulario.html", {"request": request})
-
+# we first take client data to add it to the names.csv
 @app.post("/submit")
 async def process_form(
-    request: Request,  # Asegurarse de incluir el request aquí
+    request: Request,  
     email: str = Form(...),
     name: str = Form(...),
     surname: str = Form(...)
 ):
-    # Rutas de los archivos CSV
-    names_csv_path = os.path.join("..", "names.csv")  # Ruta al archivo names.csv
+    names_csv_path = os.path.join("..", "names.csv")  
 
-    # Obtener el último booking_id
+    # Get last booking id
     try:
         rows = []
         with open(names_csv_path, mode="r") as file:
             reader = csv.reader(file)
             rows = list(reader)
 
-        # Obtener el nuevo ID_Booking
-        if len(rows) > 1:  # Si hay datos en el CSV
-            last_id = int(rows[-1][0])  # Último ID en la columna ID_Booking
+        
+        if len(rows) > 1:  #
+            last_id = int(rows[-1][0])  
         else:
             last_id = 0 
     except Exception as e:
         print(f"Error al leer el archivo names.csv: {e}")
         return templates.TemplateResponse("index.html", {"request": request, "email": email, "error": "Error al procesar la reserva."})
 
-    # Guardar los datos en el archivo CSV
+    # Safe all the data
     try:
         new_row = [last_id + 1, email, name, surname]
         rows.append(new_row)

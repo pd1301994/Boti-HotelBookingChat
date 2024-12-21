@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 
-
+#get all the bookings and formating the date
 def load_bookings(file_path):
     bookings = []
     try:
@@ -31,6 +31,8 @@ def load_bookings(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
     return bookings
+
+#checking if the room is available in the desire dates
 def is_room_available(room_type, entry_date, exit_date, names):
     """Comprueba la disponibilidad de la habitación para las fechas solicitadas."""
     if not names:

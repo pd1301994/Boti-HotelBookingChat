@@ -4,22 +4,22 @@ FROM python:3.10-slim
 # Define el directorio de trabajo
 WORKDIR /app
 
-# Copia solo el archivo requirements.txt primero para aprovechar la caché de Docker
+# We are copying requirements.txt
 COPY requirements.txt .
 
-# Actualiza pip a la última versión
+# Update pip 
 RUN python -m pip install --upgrade pip
 
-# Instala las dependencias desde requirements.txt
+# installing all dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia todo el proyecto después de instalar las dependencias
+# Copy the whole project
 COPY . .
 
-# Expone los puertos necesarios
+# Necessary ports
 EXPOSE 5005
 EXPOSE 5055
 EXPOSE 8000
 
-# Comando para ejecutar Rasa, las acciones y FastAPI
+# Rasa, actions and fast api
 CMD ["/bin/bash", "-c", "rasa run --enable-api --cors '*' & rasa run actions & cd frontend && uvicorn main:app --host 0.0.0.0 --port 8000"]

@@ -4,11 +4,12 @@ from datetime import datetime  # Importar la biblioteca para formatear fechas
 
 def send_mail(booking_id, email_client, name, surname, entry_date, exit_date, Room_Type):
     sender_email = "botipchotels@gmail.com"
+    #its a dummy account, normally this should be in a safer place 
     sender_password = "gisk xakl hylw usov"
     receiver_email = email_client
     
     subject = "Booking confirmation"
-
+    # making the date human readble
     formatted_entry_date = entry_date.strftime("%d of %B de %Y")  # Ej: 14 de julio de 2025
     formatted_exit_date = exit_date.strftime("%d of %B de %Y")    # Ej: 17 de julio de 2025
 

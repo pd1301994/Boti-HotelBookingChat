@@ -9,3 +9,8 @@ ID_Boking,email,name,surname,Room_Type,Entry_Date,Exit_Date
 8,janina.silbernagel@gmx.de,Janina,Silbernagel,Familiar,2025-02-09,2025-02-15
 9,ps.dedios94@gmail.com,Paula,de Dios Oliver,Familiar,2025-02-03,2025-02-09
 10,ps.dedios94@gmail.com,Paula,de Dios Oliver,Familiar,2025-10-04,2025-10-10
+11,ps.dedios94@gmail.com,Dummy,User
+12,ps.dedios94@gmail.com,Dummy,User
+13,ps.dedios94@gmail.com,Dummy2,User,Single,2025-12-04,2025-12-07
+14,ps.dedios94@gmail.com,Paula,User,Double,2025-10-05,2025-10-06
+15,ps.dedios94@gmail.com,Pau,De Dio sOliver,Double,2025-09-01,2025-09-07

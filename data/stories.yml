@@ -82,5 +82,10 @@ stories:
   - action: utter_cheer_up
   - action: utter_did_that_help
   - intent: deny
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_cheer_up_2
+  - intent: deny
+  - action: utter_cheer_up_3
   - action: utter_goodbye
 

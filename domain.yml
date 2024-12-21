@@ -66,7 +66,13 @@ responses:
   utter_greet:
     - text: "Hey! How are you?" 
   utter_cheer_up:
-    - text: "Here is something to cheer you up:"
+    - text: "Here is something to cheer you up: Why did the golfer bring two pairs of pants?
+  In case he got a hole in one!"
+  utter_cheer_up_2:
+    - text: "Lets try again: Why did the bicycle fall over?
+Because it was two-tired"
+  utter_cheer_up_3:
+    - text: "Stop putting so High expectations on me, I am just a bot. Go outside for a walk, that would make you feel better :) "
   utter_did_that_help:
     - text: "Did that help you?"
 

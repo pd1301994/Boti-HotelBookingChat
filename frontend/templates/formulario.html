@@ -154,13 +154,19 @@
                 <h2>Welcome</h2>
                 <form action="/submit" method="post">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required
+                    pattern="^[^\s@]+@[a-zA-Z0-9]+\.[a-zA-Z]{1,5}$"
+                    title="Please enter a valid email address name@email.domain">
 
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" required
+                    pattern="[A-Za-z\s]{1,50}"
+                    title="Name must contain only letters and spaces, and be up to 20 characters long.">
 
                     <label for="surname">Surname:</label>
-                    <input type="text" id="surname" name="surname" required>
+                    <input type="text" id="surname" name="surname" required
+                    pattern="[A-Za-z\s]{1,50}"
+                    title="Surname must contain only letters and spaces, and be up to 20 characters long.">
 
                     <!-- Contenedor para el botón centrado -->
                     <div class="button-container">
